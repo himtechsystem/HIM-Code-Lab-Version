@@ -1,78 +1,72 @@
-# Visual Studio Code - Open Source ("Code - OSS")
-[![Feature Requests](https://img.shields.io/github/issues/microsoft/vscode/feature-request.svg)](https://github.com/microsoft/vscode/issues?q=is%3Aopen+is%3Aissue+label%3Afeature-request+sort%3Areactions-%2B1-desc)
-[![Bugs](https://img.shields.io/github/issues/microsoft/vscode/bug.svg)](https://github.com/microsoft/vscode/issues?utf8=✓&q=is%3Aissue+is%3Aopen+label%3Abug)
-[![Gitter](https://img.shields.io/badge/chat-on%20gitter-yellow.svg)](https://gitter.im/Microsoft/vscode)
+# HIM Code 功能蓝图 (Capability Map)
 
-## The Repository
+本文件详细记录了 HIM Code 的核心功能点。这些描述不仅是功能介绍，更被设计为可以直接喂给 AI 的 **"Prompt 指令"**，以便他人克隆或重现本项目的核心能力。
 
-This repository ("`Code - OSS`") is where we (Microsoft) develop the [Visual Studio Code](https://code.visualstudio.com) product together with the community. Not only do we work on code and issues here, we also publish our [roadmap](https://github.com/microsoft/vscode/wiki/Roadmap), [monthly iteration plans](https://github.com/microsoft/vscode/wiki/Iteration-Plans), and our [endgame plans](https://github.com/microsoft/vscode/wiki/Running-the-Endgame). This source code is available to everyone under the standard [MIT license](https://github.com/microsoft/vscode/blob/main/LICENSE.txt).
+---
 
-## Visual Studio Code
+## 1. 原生 AI 侧边栏集成 (Native Chat Sidebar)
 
-<p align="center">
-  <img alt="VS Code in action" src="https://user-images.githubusercontent.com/35271042/118224532-3842c400-b438-11eb-923d-a5f66fa6785a.png">
-</p>
+### 功能描述
+将 AI 聊天面板深度集成到 VS Code 的原生辅助栏（Auxiliary Bar，默认在右侧）。这与传统的插件（Extension）不同，它通过修改 Workbench 源码实现，具有极高的性能和无缝的 UI 体验。
 
-[Visual Studio Code](https://code.visualstudio.com) is a distribution of the `Code - OSS` repository with Microsoft-specific customizations released under a traditional [Microsoft product license](https://code.visualstudio.com/License/).
+### 复制此功能的 Prompt
+> "请在 VS Code 的全局工作区（Workbench）集成一个原生的 AI 聊天面板。要求：
+> 1. 面板需注入到辅助栏（Auxiliary Bar）中。
+> 2. 支持沉浸式 UI（Glassmorphism 或深色模式优化）。
+> 3. 后端逻辑需通过 `ViewPane` 实现，并确保在不同工作区切换时状态持久化。
+> 4. 实现自定义 CSS 令牌（Tokens），使用 HSL 调色系统以确保与 IDE 主题完美融合。"
 
-[Visual Studio Code](https://code.visualstudio.com) combines the simplicity of a code editor with what developers need for their core edit-build-debug cycle. It provides comprehensive code editing, navigation, and understanding support along with lightweight debugging, a rich extensibility model, and lightweight integration with existing tools.
+---
 
-Visual Studio Code is updated monthly with new features and bug fixes. You can download it for Windows, macOS, and Linux on [Visual Studio Code's website](https://code.visualstudio.com/Download). To get the latest releases every day, install the [Insiders build](https://code.visualstudio.com/insiders).
+## 2. 代理协同调度引擎 (Agentic Orchestration Engine)
 
-## Contributing
+### 功能描述
+HIM Code 不仅仅是简单的对话机器人，它拥有一个协同调度引擎。通过 `org.json` 定义不同的代理（Agents）及其职责。主代理（Orchestrator）负责规划，并将任务分发给专门的 Worker（如 Executor、Refactorer）。
 
-There are many ways in which you can participate in this project, for example:
+### 复制此功能的 Prompt
+> "实现一个基于 JSON 配置的多代理（Multi-Agent）协同系统。核心组件包括：
+> 1. **Orchestrator**: 负责解析用户需求，生成 `org.json` 组织结构图。
+> 2. **Worker**: 具有特定‘使命’（Mandate）的独立执行单元。
+> 3. **验证层**: 对 `org.json` 进行严格 Schema 校验，确保代理间的连接（Edges）类型正确（Delegate/Inform/Request）。
+> 4. **归一化逻辑**: 对模型不稳定的 JSON 输出进行自动修复（如自动转换对象为数组，补全缺失字段）。"
 
-* [Submit bugs and feature requests](https://github.com/microsoft/vscode/issues), and help us verify as they are checked in
-* Review [source code changes](https://github.com/microsoft/vscode/pulls)
-* Review the [documentation](https://github.com/microsoft/vscode-docs) and make pull requests for anything from typos to additional and new content
+---
 
-If you are interested in fixing issues and contributing directly to the code base,
-please see the document [How to Contribute](https://github.com/microsoft/vscode/wiki/How-to-Contribute), which covers the following:
+## 3. 动态组织管理逻辑 (HIM Organization Logic)
 
-* [How to build and run from source](https://github.com/microsoft/vscode/wiki/How-to-Contribute)
-* [The development workflow, including debugging and running tests](https://github.com/microsoft/vscode/wiki/How-to-Contribute#debugging)
-* [Coding guidelines](https://github.com/microsoft/vscode/wiki/Coding-Guidelines)
-* [Submitting pull requests](https://github.com/microsoft/vscode/wiki/How-to-Contribute#pull-requests)
-* [Finding an issue to work on](https://github.com/microsoft/vscode/wiki/How-to-Contribute#where-to-contribute)
-* [Contributing to translations](https://aka.ms/vscodeloc)
+### 功能描述
+实时管理代理的状态、任务分配和工作范围。代理可以查看、创建、修改文件，并访问特定的工作空间（World Scope）。
 
-## Feedback
+### 复制此功能的 Prompt
+> "开发一套代理组织状态管理系统。
+> 1. 每个代理需定义 `capability`（能力集）和 `world`（作用域，如 filesystem 或 none）。
+> 2. 支持 `assigned_tasks` 任务队列的动态更新。
+> 3. 实现一个 UI 列表，能够过滤隐藏后台 Worker 代理，仅保留主调度者在全局导航中显示。
+> 4. 确保工作流程透明，所有代理的变更操作必须经过用户的‘批准’环节点。"
 
-* Ask a question on [Stack Overflow](https://stackoverflow.com/questions/tagged/vscode)
-* [Request a new feature](CONTRIBUTING.md)
-* Upvote [popular feature requests](https://github.com/microsoft/vscode/issues?q=is%3Aopen+is%3Aissue+label%3Afeature-request+sort%3Areactions-%2B1-desc)
-* [File an issue](https://github.com/microsoft/vscode/issues)
-* Connect with the extension author community on [GitHub Discussions](https://github.com/microsoft/vscode-discussions/discussions) or [Slack](https://aka.ms/vscode-dev-community)
-* Follow [@code](https://x.com/code) and let us know what you think!
+---
 
-See our [wiki](https://github.com/microsoft/vscode/wiki/Feedback-Channels) for a description of each of these channels and information on some other available community-driven channels.
+## 4. 深度终端与文件交互 (Terminal & File Synergy)
 
-## Related Projects
+### 功能描述
+代理拥有执行 Shell 命令和直接操作文件的权限。
 
-Many of the core components and extensions to VS Code live in their own repositories on GitHub. For example, the [node debug adapter](https://github.com/microsoft/vscode-node-debug) and the [mono debug adapter](https://github.com/microsoft/vscode-mono-debug) repositories are separate from each other. For a complete list, please visit the [Related Projects](https://github.com/microsoft/vscode/wiki/Related-Projects) page on our [wiki](https://github.com/microsoft/vscode/wiki).
+### 复制此功能的 Prompt
+> "请为 AI 代理添加底层交互权限：
+> 1. 实现一个执行 Shell 脚本的安全接口，并在 IDE 内置终端显示输出。
+> 2. 支持代理读取当前工作区的文件树（File Tree），并根据需求提出文件修改方案（Diff）。
+> 3. 集成 Git 自动提交与回滚机制，用于保护代码在代理执行失败时的安全。"
 
-## Bundled Extensions
+---
 
-VS Code includes a set of built-in extensions located in the [extensions](extensions) folder, including grammars and snippets for many languages. Extensions that provide rich language support (inline suggestions, Go to Definition) for a language have the suffix `language-features`. For example, the `json` extension provides coloring for `JSON` and the `json-language-features` extension provides rich language support for `JSON`.
+## 5.极致视觉与交互体验 (Premium Aesthetic UX)
 
-## Development Container
+### 功能描述
+去除多余的 UI 干扰（如原生的 Quick Action 按钮），使用现代、优雅的排版。
 
-This repository includes a Visual Studio Code Dev Containers / GitHub Codespaces development container.
-
-* For [Dev Containers](https://aka.ms/vscode-remote/download/containers), use the **Dev Containers: Clone Repository in Container Volume...** command which creates a Docker volume for better disk I/O on macOS and Windows.
-  * If you already have VS Code and Docker installed, you can also click [here](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/microsoft/vscode) to get started. This will cause VS Code to automatically install the Dev Containers extension if needed, clone the source code into a container volume, and spin up a dev container for use.
-
-* For Codespaces, install the [GitHub Codespaces](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces) extension in VS Code, and use the **Codespaces: Create New Codespace** command.
-
-Docker / the Codespace should have at least **4 Cores and 6 GB of RAM (8 GB recommended)** to run a full build. See the [development container README](.devcontainer/README.md) for more information.
-
-## Code of Conduct
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-## License
-
-Copyright (c) Microsoft Corporation. All rights reserved.
-
-Licensed under the [MIT](LICENSE.txt) license.
+### 复制此功能的 Prompt
+> "优化 IDE 的 AI 交互界面：
+> 1. 移除输入框旁多余的快速操作按钮（如 + 号），保持界面整洁。
+> 2. 聊天窗口需支持 LaTeX 数学公式、Mermaid 流程图、富文本预览。
+> 3. 使用 Google Fonts 等现代字体（如 Inter 或 Roboto）替换浏览器默认字体。
+> 4. 按钮交互需增加微动画（Micro-animations）和悬停效果（Hover Effects）。"
