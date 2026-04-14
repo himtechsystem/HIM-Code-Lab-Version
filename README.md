@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/master/icons/haskell.svg" width="128" />
+  <img src="https://github.com/himtechsystem/HIM-Code-Lab-Version-vscode-/blob/bacb2c29230e7c03745c7f3fb19c6d9b30ed100a/him_code_icon.png" width="128" />
 </p>
 
 # <p align="center">🌌 HIM Code: The Fractal AI Organization</p>
@@ -17,6 +17,14 @@
 
 ---
 
+
+## 🖼️ UI Preview
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/himtechsystem/HIM-Code-Lab-Version-vscode-/bacb2c29230e7c03745c7f3fb19c6d9b30ed100a/shotcut-2026.png" width="100%" alt="HIM Code Interface" style="border-radius: 10px; border: 1px solid #333;" />
+</p>
+
+---
 ## 📖 The Vision
 
 **HIM Code** is the first AI-Native development environment that treats AI Agents not as chatty assistants, but as **Autonomous Execution Units**. By leveraging a **Fractal Organization** structure and a **Semantic Program Runtime**, HIM Code transforms user intent into verifiable, atomic actions.
