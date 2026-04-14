@@ -125,7 +125,7 @@ Learn how to build HIM Code from scratch via Vibe Coding on our YouTube Channel.
 [Coming Soon - Link Placeholder]
 <p align="center">
 <b>Built for the Architect, not the Typist.</b><br>
-<i>© 2024 HIM Code Project. MIT Licensed.</i>
+<i>© 2026 HIM Code Project. MIT Licensed.</i>
 </p>
 
 
