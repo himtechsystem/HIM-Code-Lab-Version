@@ -31,6 +31,50 @@
 
 ---
 
+## 🛠 Getting Started: Build & Launch
+
+HIM Code is built on top of a customized VSCodium core with a persistent Python sidecar. Follow these steps to set up your local laboratory environment on **macOS (M1/M2/M3)**.
+
+### 1. Prerequisites
+Ensure you have the following high-level dependencies installed:
+*   **Node.js**: `v20.x (LTS)` (Critical for VS Code source compatibility)
+*   **Yarn**: `v1.x`
+*   **Python**: `3.9+` (For the Agentic Execution Engine)
+*   **Ripgrep**: `brew install rg` (For Agentic Information Foraging)
+*   **Xcode Command Line Tools**: `xcode-select --install`
+
+### 2. Installation
+Clone the repository and install the Workbench dependencies:
+```bash
+# Clone the repository
+git clone https://github.com/your-username/HIM-Code.git
+cd HIM-Code
+
+# Install Node dependencies
+yarn install
+```
+
+### Running in Development Mode
+To start the "Lab Version" of HIM Code without a full build, use the streaming compilation mode:
+Terminal A (Watcher):
+code
+Bash
+yarn watch
+Wait for the "Finished compilation" message.
+Terminal B (Launch):
+code
+Bash
+./scripts/code.sh
+### Production Build
+To package HIM Code as a standalone .app or .dmg:
+code
+Bash
+### Execute the branding and build script
+chmod +x build.sh
+./build.sh
+The output will be located in the out-build/ directory
+
+
 ## 💎 Core Architecture (Capability Map)
 
 ### 1. Native Workbench Integration
