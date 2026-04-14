@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/himtechsystem/HIM-Code-Lab-Version-vscode-/blob/bacb2c29230e7c03745c7f3fb19c6d9b30ed100a/him_code_icon.png" width="128" />
+  <img src="https://github.com/himtechsystem/HIM-Code-Lab-Version-vscode-/blob/d2e26d7c70800af96309deb43f12404f0e2e2282/shotcut-2026.png" width="128" />
 </p>
 
 # <p align="center">🌌 HIM Code: The Fractal AI Organization</p>
