@@ -122,7 +122,7 @@
               "provider": "gemini",
               "baseUrl": "https://generativelanguage.googleapis.com/v1beta/",
               "model": "gemini-2.5-flash",
-              "apiKey": "AIzaSyALEZknK5DY3Hz4WsiG-vkusf-_OZ7f-l4"
+              "apiKey": ""
             }
           ],
           "items": {
