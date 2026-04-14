@@ -53,7 +53,7 @@ const DEFAULT_CUSTOM_MODELS: ReadonlyArray<CustomModelConfig> = [{
 	provider: 'gemini',
 	baseUrl: 'https://generativelanguage.googleapis.com/v1beta/',
 	model: 'gemini-2.5-flash',
-	apiKey: 'AIzaSyALEZknK5DY3Hz4WsiG-vkusf-_OZ7f-l4',
+	apiKey: '',
 }];
 const PROVIDER_OPTIONS: ReadonlyArray<{ value: string; label: string }> = [
 	{ value: 'openai', label: 'OpenAI' },
