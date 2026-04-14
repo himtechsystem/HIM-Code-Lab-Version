@@ -262,6 +262,7 @@ function normalizeHimOrganizationJson(raw: any): any {
 		// sanitize from/to ids
 		if (ne.from) { ne.from = sanitizeAgentId(ne.from); }
 		if (ne.to) { ne.to = sanitizeAgentId(ne.to); }
+		if (!ne.kind) { ne.kind = 'delegate'; }
 		return ne;
 	});
 
