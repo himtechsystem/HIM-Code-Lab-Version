@@ -1,0 +1,291 @@
+{
+  "name": "him-chat",
+  "displayName": "HIM Chat",
+  "description": "Built-in HIM chat participant with comprehensive model support: OpenAI, Claude, Gemini, MiniMax, SiliconFlow, DeepSeek, Qwen, Moonshot, Zhipu AI, Groq, Ollama, Cohere, Mistral AI, and Azure OpenAI.",
+  "version": "0.0.1",
+  "publisher": "himcode",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "enabledApiProposals": [
+    "defaultChatParticipant"
+  ],
+  "main": "./out/extension",
+  "activationEvents": [
+    "onChatParticipant:him.chat",
+    "onCommand:himChat.openSettings",
+    "onCommand:himChat.openModelSettings",
+    "onCommand:himInspector.show",
+    "*"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "himChat.openSettings",
+        "title": "HIM CODE: Open User Settings"
+      },
+      {
+        "command": "himChat.openModelSettings",
+        "title": "HIM CODE: Open Model Settings"
+      },
+      {
+        "command": "himInspector.clear",
+        "title": "HIM Inspector: Clear"
+      },
+      {
+        "command": "himInspector.show",
+        "title": "HIM Inspector: Show"
+      }
+    ],
+    "chatParticipants": [
+      {
+        "id": "him.chat",
+        "name": "him",
+        "fullName": "HIM AI",
+        "description": "Talk to your configured model provider (OpenAI / Claude / Gemini / Minimax).",
+        "commands": [
+          {
+            "name": "status",
+            "description": "Show HIM Chat provider status"
+          }
+        ]
+      }
+    ],
+    "languageModelChatProviders": [
+      {
+        "vendor": "him",
+        "displayName": "HIM AI"
+      }
+    ],
+    "configuration": {
+      "title": "HIM CODE User Settings",
+      "properties": {
+        "himCode.chat.provider": {
+          "type": "string",
+          "default": "gemini",
+          "enum": [
+            "openai",
+            "anthropic",
+            "gemini",
+            "minimax",
+            "siliconflow",
+            "deepseek",
+            "qwen",
+            "moonshot",
+            "zhipu",
+            "groq",
+            "ollama",
+            "cohere",
+            "mistral",
+            "azure",
+            "openaiCompatible"
+          ],
+          "markdownDescription": "Upstream provider used by HIM Chat."
+        },
+        "himCode.chat.apiKey": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "API key for the selected provider. If empty, HIM Chat also checks provider env vars (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`, `GOOGLE_API_KEY`, `MINIMAX_API_KEY`)."
+        },
+        "himCode.chat.baseUrl": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Optional base URL override. Leave empty to use provider defaults."
+        },
+        "himCode.chat.model": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Model name override. Leave empty to use provider defaults."
+        },
+        "himCode.chat.providerModels": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "string"
+          },
+          "markdownDescription": "Per-provider model overrides. Example: `{ \"openai\": \"gpt-4.1-mini\" }`."
+        },
+        "himCode.chat.providerApiKeys": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "string"
+          },
+          "markdownDescription": "Per-provider API keys used before `himCode.chat.apiKey`."
+        },
+        "himCode.chat.customModels": {
+          "type": "array",
+          "default": [
+            {
+              "id": "gemini-default",
+              "provider": "gemini",
+              "baseUrl": "https://generativelanguage.googleapis.com/v1beta/",
+              "model": "gemini-2.5-flash",
+              "apiKey": "AIzaSyALEZknK5DY3Hz4WsiG-vkusf-_OZ7f-l4"
+            }
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "baseUrl": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "apiKey": {
+                "type": "string"
+              }
+            }
+          },
+          "markdownDescription": "Custom model endpoints for free-form providers. Each item supports `baseUrl`, `model`, and `apiKey`."
+        },
+        "himCode.chat.selectedModelId": {
+          "type": "string",
+          "default": "gemini-default",
+          "markdownDescription": "Selected custom model id from `himCode.chat.customModels`."
+        },
+        "himCode.chat.systemPrompt": {
+          "type": "string",
+          "default": "You are HIM Code AI assistant. Be concise, accurate, and practical for software engineering.",
+          "markdownDescription": "System prompt prepended to each request. See: extensions/him-chat/prompts/system-prompt.md"
+        },
+        "himCode.chat.temperature": {
+          "type": "number",
+          "default": 0.2,
+          "minimum": 0,
+          "maximum": 2,
+          "markdownDescription": "Sampling temperature."
+        },
+        "himCode.chat.maxTokens": {
+          "type": "number",
+          "default": 16384,
+          "minimum": 64,
+          "maximum": 32768,
+          "markdownDescription": "Max output tokens."
+        },
+        "himCode.chat.timeoutMs": {
+          "type": "number",
+          "default": 300000,
+          "minimum": 1000,
+          "maximum": 600000,
+          "markdownDescription": "Request timeout in milliseconds."
+        },
+        "himCode.chat.historyTurns": {
+          "type": "number",
+          "default": 8,
+          "minimum": 0,
+          "maximum": 40,
+          "markdownDescription": "How many previous turns to include in provider requests."
+        },
+        "himCode.chat.semanticProgramMode": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled, the model first outputs a `<him-semantic-program>` JSON; the IDE runs compiler audit and executes one semantic step per round."
+        },
+        "himCode.chat.semanticProgramDebug": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "When enabled, assistant messages from semantic program mode include a **Debug** card with provider inputs/outputs per phase (Author, Compiler, Codegen). May contain long prompts and API keys in system text — turn off before sharing screenshots."
+        },
+        "himCode.chat.maxPlanSteps": {
+          "type": "number",
+          "default": 64,
+          "minimum": 4,
+          "maximum": 256,
+          "markdownDescription": "Safety cap on semantic program chain length (steps) per send."
+        },
+        "himCode.chat.requestPath": {
+          "type": "string",
+          "default": "/chat/completions",
+          "markdownDescription": "Request path used for `openai`, `minimax`, and `openaiCompatible` providers."
+        },
+        "himCode.chat.anthropicVersion": {
+          "type": "string",
+          "default": "2023-06-01",
+          "markdownDescription": "Anthropic API version header value."
+        },
+        "himCode.chat.minimaxGroupId": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Optional MiniMax GroupId header."
+        },
+        "himCode.chat.shellOutputMaxLines": {
+          "type": "number",
+          "default": 20,
+          "minimum": 1,
+          "maximum": 200,
+          "markdownDescription": "Max lines kept for each shell output (tail)."
+        },
+        "himCode.chat.shellHeredocFastPath": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Fast-path large heredoc writes in <him-shell> to avoid terminal timeouts/encoding issues."
+        },
+        "himCode.chat.search.defaultProvider": {
+          "type": "string",
+          "default": "auto",
+          "enum": ["auto", "whitelist", "web", "google"],
+          "markdownDescription": "Default provider for <him-search>. 'auto' picks whitelist for code/engineering questions and open-web for general web tasks."
+        },
+        "himCode.chat.search.askToBroaden": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "If whitelist returns no results, ask user whether to broaden search scope (e.g. Google CSE)."
+        },
+        "himCode.chat.search.maxOutputLines": {
+          "type": "number",
+          "default": 60,
+          "minimum": 5,
+          "maximum": 400,
+          "markdownDescription": "Max lines shown inside one search result block (head)."
+        },
+        "himCode.chat.googleCseApiKey": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Google Custom Search API key used when provider is 'google'."
+        },
+        "himCode.chat.googleCseCx": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Google Custom Search Engine CX used with Google CSE search."
+        },
+        "himCode.chat.voiceTranscriptionUrl": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Full URL for **OpenAI-compatible** speech-to-text (HTTP POST, `multipart/form-data` with fields `file` + `model`). Example: `https://api.openai.com/v1/audio/transcriptions`. Required for microphone input."
+        },
+        "himCode.chat.voiceTranscriptionApiKey": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "API key sent as `Authorization: Bearer …` for **HIM CODE** voice transcription. Prefer a key scoped to transcription only."
+        },
+        "himCode.chat.voiceTranscriptionModel": {
+          "type": "string",
+          "default": "whisper-1",
+          "markdownDescription": "Model name sent as form field `model` (e.g. `whisper-1` for OpenAI)."
+        },
+        "himCode.chat.voiceTranscriptionLanguage": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Optional ISO-639-1 language code (form field `language`), e.g. `zh`. Empty: provider auto-detect."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "gulp compile-extension:him-chat",
+    "watch": "gulp watch-extension:him-chat"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vscode.git"
+  }
+}

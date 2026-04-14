@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HIM Inspector Preview</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #1a1a2e; }
+        iframe { width: 100%; height: 600px; border: 2px solid #00ff88; }
+    </style>
+</head>
+<body>
+    <h1 style="color:#00ff88;font-family:monospace;">HIM Inspector Preview</h1>
+    <p style="color:#ff8844;font-family:monospace;">Open this file in a browser to preview the UI</p>
+    <iframe src="him-inspector.html"></iframe>
+    <script>
+        // Simulate events for preview
+        const iframe = document.querySelector('iframe');
+        iframe.onload = () => {
+            const vscode = { postMessage: (msg) => console.log('Message:', msg) };
+
+            // Send mock messages after 1 second
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'agent_thinking_start', data: 'Analyzing...' }, '*');
+            }, 1000);
+
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'agent_code_start', data: { language: 'python' } }, '*');
+            }, 1500);
+
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'agent_code_chunk', data: { line: 'def hello():', lineNumber: 0, totalLines: 4, isComplete: false } }, '*');
+            }, 2000);
+
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'agent_code_chunk', data: { line: '    print("Hello!")', lineNumber: 1, totalLines: 4, isComplete: false } }, '*');
+            }, 2200);
+
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'agent_code_chunk', data: { line: '    return True', lineNumber: 2, totalLines: 4, isComplete: false } }, '*');
+            }, 2400);
+
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'agent_code_chunk', data: { line: 'hello()', lineNumber: 3, totalLines: 4, isComplete: true } }, '*');
+            }, 2600);
+
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'exec_start', data: { lineNumber: 0, lineContent: 'def hello():' } }, '*');
+            }, 3000);
+
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'exec_line', data: { lineNumber: 0, status: 'success' } }, '*');
+            }, 3200);
+
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'stream_event', data: { action: 'say', data: 'Function defined successfully!' } }, '*');
+            }, 3400);
+
+            setTimeout(() => {
+                const win = iframe.contentWindow;
+                win.postMessage({ type: 'exec_complete', data: { timestamp: Date.now(), duration: 500, linesExecuted: 4 } }, '*');
+            }, 3600);
+        };
+    </script>
+</body>
+</html>
