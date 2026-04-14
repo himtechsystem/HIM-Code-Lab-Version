@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/himtechsystem/HIM-Code-Lab-Version-vscode-/blob/d2e26d7c70800af96309deb43f12404f0e2e2282/shotcut-2026.png" width="128" />
+  <img src="https://github.com/himtechsystem/HIM-Code-Lab-Version-vscode-/blob/e83f6dde8a3680ace7d097aff8e829842af712b8/him_code_icon.png" width="128" />
 </p>
 
 # <p align="center">🌌 HIM Code: The Fractal AI Organization</p>
@@ -21,7 +21,7 @@
 ## 🖼️ UI Preview
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/himtechsystem/HIM-Code-Lab-Version-vscode-/bacb2c29230e7c03745c7f3fb19c6d9b30ed100a/shotcut-2026.png" width="100%" alt="HIM Code Interface" style="border-radius: 10px; border: 1px solid #333;" />
+  <img src="https://github.com/himtechsystem/HIM-Code-Lab-Version-vscode-/blob/d2e26d7c70800af96309deb43f12404f0e2e2282/shotcut-2026.png" width="100%" alt="HIM Code Interface" style="border-radius: 10px; border: 1px solid #333;" />
 </p>
 
 ---
