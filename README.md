@@ -24,6 +24,8 @@
   <img src="https://github.com/himtechsystem/HIM-Code-Lab-Version-vscode-/blob/d2e26d7c70800af96309deb43f12404f0e2e2282/shotcut-2026.png" width="100%" alt="HIM Code Interface" style="border-radius: 10px; border: 1px solid #333;" />
 </p>
 
+
+### Website ： https://him-code-website.pages.dev/
 ---
 ## 📖 The Vision
 
